@@ -17,6 +17,10 @@ class Aside extends HTMLElement {
                 min-width: 235px;
                 height:100%;
             }
+
+            span{
+                
+            }
         </style>
 
         <aside>
@@ -28,6 +32,9 @@ class Aside extends HTMLElement {
             
             <slot name="user">
             </slot>
+
+            <span class="top"></span>
+            <span class="bot"></span>
         </aside>
 
         `;

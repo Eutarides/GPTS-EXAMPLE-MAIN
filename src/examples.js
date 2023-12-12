@@ -4,6 +4,8 @@ class Examples extends HTMLElement {
         super();
         this.shadow = this.attachShadow({mode: 'open'});
         this.render();
+        document.addEventListener('start-chat', this.unRender.bind(this));
+        document.addEventListener('new-chat', this.render.bind(this));
     }
 
     render() {
@@ -16,6 +18,10 @@ class Examples extends HTMLElement {
                 flex-wrap: wrap;
                 gap: 0.5rem;
                 justify-content: center;
+                position:fixed;
+                bottom:10%;
+                left:37%;
+                width:40%;
             }
             
             .example{
@@ -178,6 +184,11 @@ class Examples extends HTMLElement {
         `;
 
     }
+
+    unRender() {
+      this.shadow.innerHTML = ``;
+    }
+
 
     
 }

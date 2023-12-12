@@ -3,7 +3,18 @@ class UserInteraction extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({mode: 'open'});
+        this.startChat = true;
+
+        document.addEventListener('new-chat', this.handleNewChat.bind(this));
+    }
+
+    connectedCallback(){
         this.render();
+    }
+
+    handleNewChat() {
+        this.startChat = true;
+        this.render;
     }
 
     render() {
@@ -12,7 +23,10 @@ class UserInteraction extends HTMLElement {
         `
         <style>
             .message-input{
-                width: 100%;
+                width: 40%;
+                position:fixed;
+                bottom:3%;
+                left:37%;
             }
             
             .message-input .attach-button button{
@@ -148,7 +162,7 @@ class UserInteraction extends HTMLElement {
         let sendButton = this.shadow.querySelector('.send-button');
         let chatText = this.shadow.querySelector('textarea');
 
-        const updateButtonState = () => {
+        chatText.addEventListener('input',  () => {
             if (chatText.value.trim() !== '') {
                 sendButton.classList.add('active');
                 sendButton.removeAttribute('disabled');
@@ -156,24 +170,21 @@ class UserInteraction extends HTMLElement {
                 sendButton.classList.remove('active');
                 sendButton.setAttribute('disabled', true);
             }
-        };
-
-        chatText.addEventListener('input', updateButtonState);
-        
-        this.addEventListener('disconnect', () => {
-            observer.disconnect();
         });
 
         sendButton.addEventListener('click', (event) => {
+
             event.preventDefault();
-            if (sendButton.classList.contains('active')) {
-                console.log(chatText.value);
+            
+            if(this.startChat){
+                this.startChat = false;
+                document.dispatchEvent(new CustomEvent('start-chat'));
             }
+
+            this.render();
         });
 
     }
-
-    
 }
 
 customElements.define('user-interaction-component', UserInteraction);

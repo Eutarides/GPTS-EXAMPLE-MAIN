@@ -4,6 +4,17 @@ class Conversation extends HTMLElement {
         super();
         this.shadow = this.attachShadow({mode: 'open'});
         this.render();
+
+        document.addEventListener('start-chat', this.handleStartChat.bind(this));
+        document.addEventListener('new-chat', this.handleNewChat.bind(this));
+    }
+
+    handleStartChat() {
+        this.shadow.innerHTML = ``;
+    }
+
+    handleNewChat() {
+        this.render;
     }
 
     render() {
@@ -67,8 +78,6 @@ class Conversation extends HTMLElement {
         `;
 
     }
-
-    
 }
 
 customElements.define('conversation-component', Conversation);

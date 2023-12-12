@@ -121,6 +121,13 @@ class NewConversation extends HTMLElement {
 
         `;
 
+        let newConvers = this.shadow.querySelector(".new-conversations");
+
+        newConvers.addEventListener('click', (event) => {
+            document.dispatchEvent(new CustomEvent('new-chat', {
+            }));
+        });
+
     }
 
     

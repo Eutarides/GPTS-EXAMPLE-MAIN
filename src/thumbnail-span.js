@@ -31,6 +31,7 @@ class Thumbnail extends HTMLElement {
                 display: inline-block;
                 transition: transform 0.3s ease;
                 background-color:white;
+                border-radius:2px;
             }
 
             .top.active{

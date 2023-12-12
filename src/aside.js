@@ -24,6 +24,7 @@ class Aside extends HTMLElement {
                 min-width: 235px;
                 height:100%;
                 transition:all 0.5s;
+                overflow:hidden;
             }
 
             aside.active{

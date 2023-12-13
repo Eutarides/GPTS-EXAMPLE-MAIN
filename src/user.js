@@ -25,7 +25,6 @@ class User extends HTMLElement {
             display: flex;
             gap: 0.5rem;
             padding: 1rem;
-            position: absolute;
             }
 
             .user-logo{

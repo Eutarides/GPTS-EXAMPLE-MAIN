@@ -181,6 +181,12 @@ class UserInteraction extends HTMLElement {
                 document.dispatchEvent(new CustomEvent('start-chat'));
             }
 
+            document.dispatchEvent(new CustomEvent('send-prompt',{
+                detail: {
+                    prompt: chatText.value 
+                }
+            }));
+
             this.render();
         });
 

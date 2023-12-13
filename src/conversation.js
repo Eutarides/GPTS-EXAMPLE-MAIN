@@ -14,7 +14,7 @@ class Conversation extends HTMLElement {
     }
 
     handleNewChat() {
-        this.render;
+        this.render();
     }
 
     render() {

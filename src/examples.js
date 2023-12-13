@@ -4,8 +4,16 @@ class Examples extends HTMLElement {
         super();
         this.shadow = this.attachShadow({mode: 'open'});
         this.render();
-        document.addEventListener('start-chat', this.unRender.bind(this));
-        document.addEventListener('new-chat', this.render.bind(this));
+        document.addEventListener('start-chat', this.handleStartChat.bind(this));
+        document.addEventListener('new-chat', this.handleNewChat.bind(this));
+    }
+
+    handleStartChat() {
+        this.shadow.innerHTML = ``;
+    }
+
+    handleNewChat() {
+        this.render();
     }
 
     render() {
@@ -183,10 +191,6 @@ class Examples extends HTMLElement {
 
         `;
 
-    }
-
-    unRender() {
-      this.shadow.innerHTML = ``;
     }
 
 

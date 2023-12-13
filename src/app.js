@@ -6,4 +6,5 @@ import './aside.js';
 import './conversation.js';
 import './examples.js';
 import './thumbnail-span.js';
+import './chat.js';
 

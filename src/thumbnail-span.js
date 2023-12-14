@@ -14,7 +14,7 @@ class Thumbnail extends HTMLElement {
 
             .arrow{
                 position:fixed;
-                left:13%;
+                left:255px;
                 bottom:50%;
                 display:flex;
                 flex-direction:column;

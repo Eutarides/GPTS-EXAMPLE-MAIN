@@ -6,7 +6,6 @@ class Chat extends HTMLElement {
         document.addEventListener('send-prompt', this.handlePrompt.bind(this));
         document.addEventListener('start-chat', this.handleStartChat.bind(this));
         document.addEventListener('new-chat', this.handleNewChat.bind(this));
-        document.addEventListener('generation-stop', this.handleGenerationStop.bind(this));
     }
 
     handleStartChat() {
@@ -20,10 +19,6 @@ class Chat extends HTMLElement {
 
         chat.classList.remove("active");
         this.render();
-    }
-
-    handleGenerationStop(){
-
     }
 
 
@@ -131,6 +126,28 @@ class Chat extends HTMLElement {
             .chat:hover::-webkit-scrollbar-thumb:hover{
                 background-color: hsl(0, 0%, 78%); 
             }
+
+            .pulse{
+            }
+
+            .pulse.active{
+                display:none;
+            }
+
+            .pulse svg{
+                fill:white;width:15px;
+            }
+
+            .gpt-user-message{
+                color:white;
+                margin:0;
+                font-weight:300;
+                display:none;
+            }
+
+            .gpt-user-message.active{
+                display:flex;
+            }
         </style>
 
         <div class="chat">
@@ -188,13 +205,21 @@ class Chat extends HTMLElement {
         GPTuserSelf.classList.add("user-self");
         GPTuserChat.appendChild(GPTuserSelf);
 
+        const GPTuserPulse = document.createElement('div');
+        GPTuserPulse.classList.add('pulse');
+        GPTuserPulse.innerHTML= `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>circle</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>`
+        GPTuserChat.appendChild(GPTuserPulse);
+
         const GPTuserMessage = document.createElement('p');
         GPTuserMessage.classList.add("typing-animation");
-        GPTuserMessage.textContent= `BomboClaaaaat BomboClaaaaat BomboClaaaaat BomboClaaaaat BomboClaaaaat BomboClaaaaat BomboClaaaaat BomboClaaaaat `;
-        GPTuserMessage.classList.add("user-message");
+        GPTuserMessage.textContent= `BomboClaaaaat`;
+        GPTuserMessage.classList.add("gpt-user-message");
         GPTuserChat.appendChild(GPTuserMessage);
 
-
+        setTimeout(()=>{
+            GPTuserPulse.classList.toggle("active");
+            GPTuserMessage.classList.toggle("active");
+        },500);
 
 
         setTimeout(() => {
@@ -215,9 +240,6 @@ class Chat extends HTMLElement {
           
             chat.scrollTop += delta;
         });
-
-        document.dispatchEvent(new CustomEvent('visible-stop',{
-        }));
         
     }
     

@@ -7,10 +7,17 @@ class UserInteraction extends HTMLElement {
 
         document.addEventListener('new-chat', this.handleNewChat.bind(this));
         document.addEventListener('visible-stop', this.handleVisibleStop.bind(this));
+        document.addEventListener('hide-aside', this.handleToggleMessage.bind(this));
     }
 
     connectedCallback(){
         this.render();
+    }
+
+    handleToggleMessage(){
+        let messageInput = this.shadow.querySelector(".message-input");
+
+        messageInput.classList.toggle("active");
     }
 
     handleNewChat() {
@@ -22,8 +29,8 @@ class UserInteraction extends HTMLElement {
         let stop = this.shadow.querySelector(".stop-button");
         let send = this.shadow.querySelector(".send-button");
 
-        send.classList.add("visible");
-        stop.classList.add("visible");
+        send.classList.toggle("visible");
+        stop.classList.toggle("visible");
 
     }
 
@@ -37,6 +44,13 @@ class UserInteraction extends HTMLElement {
                 position:fixed;
                 bottom:3%;
                 left:37%;
+                transition:0.7s;
+            }
+
+            .message-input.active{
+                width:60%;
+                left:20%;
+                transition:0.7s;
             }
             
             .message-input .attach-button button{
@@ -75,6 +89,10 @@ class UserInteraction extends HTMLElement {
                 max-height: 5rem;
                 resize: none;
                 width: 100%;
+            }
+
+            textarea::-webkit-scrollbar {
+                display: none;
             }
             
             .message-input form .form-element textarea::placeholder{
@@ -270,6 +288,30 @@ class UserInteraction extends HTMLElement {
             }
         });
 
+        chatText.addEventListener('keydown', (event) => {
+
+            if (event.keyCode === 13 && !event.shiftKey) {
+                event.preventDefault();
+        
+                if (chatText.value.trim() !== '') {
+                    if (this.startChat) {
+                        this.startChat = false;
+                        document.dispatchEvent(new CustomEvent('start-chat'));
+                    }
+        
+                    document.dispatchEvent(new CustomEvent('send-prompt', {
+                        detail: {
+                            prompt: chatText.value 
+                        }
+                    }));
+        
+                    chatText.value = '';
+        
+                    this.render();
+                }
+            }
+        });
+
         sendButton.addEventListener('click', (event) => {
 
             event.preventDefault();
@@ -279,7 +321,7 @@ class UserInteraction extends HTMLElement {
                     this.startChat = false;
                     document.dispatchEvent(new CustomEvent('start-chat'));
                 }
-    
+                
                 document.dispatchEvent(new CustomEvent('send-prompt',{
                     detail: {
                         prompt: chatText.value 
@@ -293,11 +335,10 @@ class UserInteraction extends HTMLElement {
         stopButton.addEventListener('click', (event) => {
 
             event.preventDefault();
-            stopButton.classList.remove("visible");
-            sendButton.classList.remove("visible");
-            document.dispatchEvent(new CustomEvent('generation-stop',{
-            }));
+            stopButton.classList.toggle("visible");
+            sendButton.classList.toggle("visible");
         });
+
 
     }
 }

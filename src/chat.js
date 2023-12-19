@@ -224,8 +224,8 @@ class Chat extends HTMLElement {
 
         setTimeout(() => {
             GPTuserMessage.scrollIntoView({ behavior: "smooth", block: "end" });
-            document.dispatchEvent(new CustomEvent('visible-stop',{
-            }));
+            // document.dispatchEvent(new CustomEvent('visible-stop',{
+            // }));
         }, 50);
 
         GPTuserMessage.addEventListener('animationend', () => {

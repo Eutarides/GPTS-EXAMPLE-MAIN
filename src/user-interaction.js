@@ -6,13 +6,33 @@ class UserInteraction extends HTMLElement {
         this.startChat = true;
 
         document.addEventListener('new-chat', this.handleNewChat.bind(this));
-        document.addEventListener('visible-stop', this.handleVisibleStop.bind(this));
+        // document.addEventListener('visible-stop', this.handleVisibleStop.bind(this));
         document.addEventListener('hide-aside', this.handleToggleMessage.bind(this));
+    }
+
+    static get observedAttributes () {
+        return ['state']
     }
 
     connectedCallback(){
         this.render();
     }
+
+
+    attributeChangedCallback (name, oldValue, newValue) {
+        if (name === 'state') {
+            if(newValue === 'stop'){
+                this.shadow.querySelector('.send-button').classList.toggle('visible');
+                this.shadow.querySelector('.stop-button').classList.toggle('visible');
+            }if (newValue === 'open'){
+                this.shadow.querySelector('.send-button').classList.toggle('visible');
+                this.shadow.querySelector('.stop-button').classList.toggle('visible');
+            }
+        //   this.loadData().then( this.render() )
+        }
+    }
+
+    
 
     handleToggleMessage(){
         let messageInput = this.shadow.querySelector(".message-input");
@@ -31,7 +51,6 @@ class UserInteraction extends HTMLElement {
 
         send.classList.toggle("visible");
         stop.classList.toggle("visible");
-
     }
 
     render() {
@@ -317,6 +336,7 @@ class UserInteraction extends HTMLElement {
             event.preventDefault();
 
             if (chatText.value.trim() !== '') {
+
                 if(this.startChat){
                     this.startChat = false;
                     document.dispatchEvent(new CustomEvent('start-chat'));
@@ -329,14 +349,17 @@ class UserInteraction extends HTMLElement {
                 }));
     
                 this.render();
+                this.setAttribute('state', 'stop');
+
             } 
         });
 
         stopButton.addEventListener('click', (event) => {
 
             event.preventDefault();
-            stopButton.classList.toggle("visible");
-            sendButton.classList.toggle("visible");
+            // stopButton.classList.toggle("visible");
+            // sendButton.classList.toggle("visible");   
+            this.setAttribute('state', 'open');
         });
 
 

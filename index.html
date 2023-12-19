@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" href="">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="shortcut icon" href="">
 
-    <title>Título</title>
-    <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
-    <meta name="keywords" 	 content="palabras clave, separadas, por comas">
+		<title>Título</title>
+		<meta name="description" content="descripción de la web, se recomienda 90 caracteres">
+		<meta name="keywords" 	 content="palabras clave, separadas, por comas">
 
-    <meta property="og:type"        content="website" />
-    <meta property="og:title"       content="Título" />
-    <meta property="og:description" content="descripción de la web, se recomienda 90 caracteres" />
-    <meta property="og:image"       content="https://www.youtube.com/s/desktop/12d6b690/img/favicon_144.png" />
-    
-    <link rel="stylesheet" href="style/app.css">
-    <script type="module" src="src/app.js"></script>
-  </head>
-  <body>
-    <aside-component>
-      <new-conversation-component slot="new-conversation"></new-conversation-component>
-      <history-component slot="new-conversation"></history-component>
-      <user-component slot="user"></user-component>
-      <thumbnail-component slot="thumbnail"></thumbnail-component>
-    </aside-component>
-    <main>
-      <conversation-component></conversation-component>
-      <chat-component></chat-component>
-      <div class="user-interaction">
-        <examples-component></examples-component>
-        <user-interaction-component></user-interaction-component>
-      </div>
-    </main>
-  </body>
+		<meta property="og:type"        content="website" />
+		<meta property="og:title"       content="Título" />
+		<meta property="og:description" content="descripción de la web, se recomienda 90 caracteres" />
+		<meta property="og:image"       content="https://www.youtube.com/s/desktop/12d6b690/img/favicon_144.png" />
+			
+		<link rel="stylesheet" href="style/app.css">
+		<script type="module" src="src/app.js"></script>
+	</head>
+	<body>
+			<aside-component>
+				<new-conversation-component slot="new-conversation"></new-conversation-component>
+				<history-component slot="new-conversation"></history-component>
+				<user-component slot="user"></user-component>
+				<thumbnail-component slot="thumbnail"></thumbnail-component>
+			</aside-component>
+		<main>
+			<conversation-component></conversation-component>
+			<chat-component></chat-component>
+			<div class="user-interaction">
+				<examples-component></examples-component>
+				<user-interaction-component></user-interaction-component>
+			</div>
+		</main>
+	</body>
 </html>
